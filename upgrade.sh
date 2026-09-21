@@ -71,7 +71,7 @@ run_preflight_checks() {
     fi
 
     # Check docker compose is available
-    if ! docker compose version >/dev/null 2>&1; then
+    if ! docker-compose version >/dev/null 2>&1; then
         print_error "docker compose is not available"
         PREFLIGHT_PASSED=false
     else
@@ -172,9 +172,9 @@ detect_deployment_mode() {
     DEPLOYMENT_TYPE=${DEPLOYMENT_TYPE:-local}
 
     if [ "$DEPLOYMENT_TYPE" == "production" ]; then
-        COMPOSE_CMD="docker compose --profile production"
+        COMPOSE_CMD="docker-compose --profile production"
     else
-        COMPOSE_CMD="docker compose"
+        COMPOSE_CMD="docker-compose"
     fi
 }
 
