@@ -297,6 +297,8 @@ pip install -r requirements.txt
 python run.py
 ```
 
+To keep it running across reboots, copy `unifi-toolkit.service` to `/etc/systemd/system/`, edit the user and paths, then `sudo systemctl enable --now unifi-toolkit`. See [docs/INSTALLATION.md](docs/INSTALLATION.md#run-as-a-systemd-service).
+
 ---
 
 ## Project Structure

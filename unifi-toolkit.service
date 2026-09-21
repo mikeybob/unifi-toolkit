@@ -1,0 +1,29 @@
+# UniFi Toolkit systemd unit
+#
+# 1. Edit User, Group, WorkingDirectory, and ExecStart for your install.
+# 2. If you use a venv, point ExecStart at venv/bin/python.
+# 3. Install and start:
+#      sudo cp unifi-toolkit.service /etc/systemd/system/
+#      sudo systemctl daemon-reload
+#      sudo systemctl enable --now unifi-toolkit
+#
+# run.py loads .env from the working directory — no EnvironmentFile needed.
+
+[Unit]
+Description=UniFi Toolkit
+Documentation=https://github.com/Crosstalk-Solutions/unifi-toolkit
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+Group=YOUR_USER
+WorkingDirectory=/opt/unifi-toolkit
+ExecStart=/opt/unifi-toolkit/venv/bin/python /opt/unifi-toolkit/run.py
+Restart=on-failure
+RestartSec=3
+SyslogIdentifier=unifi-toolkit
+
+[Install]
+WantedBy=multi-user.target

@@ -377,6 +377,32 @@ python run.py
 # Stop with Ctrl+C
 ```
 
+### Run as a systemd Service
+
+To start `run.py` on boot (Python install only — skip this if you use Docker):
+
+```bash
+# Edit User, Group, WorkingDirectory, and ExecStart to match your path
+sudo cp unifi-toolkit.service /etc/systemd/system/
+
+# If you are not using /opt/unifi-toolkit or a venv:
+#   sudo systemctl edit --full unifi-toolkit
+# Example ExecStart without a venv:
+#   ExecStart=/usr/bin/python3 /opt/unifi-toolkit/run.py
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now unifi-toolkit
+```
+
+```bash
+sudo systemctl status unifi-toolkit   # status
+sudo journalctl -u unifi-toolkit -f  # logs
+sudo systemctl restart unifi-toolkit  # restart after config or git pull
+sudo systemctl stop unifi-toolkit     # stop
+```
+
+`run.py` loads `.env` from the working directory, so the unit does not need an `EnvironmentFile`.
+
 ### Reset Admin Password
 
 If you forget your password:
